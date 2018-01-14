@@ -1,5 +1,4 @@
-#
-MNIST
+# MNIST
 
 I wanted to better understand how neural networks work and I'm a strong believer in learning by doing so I decided to build a neural network from scratch. I allowed myself to use NumPy and some varoius tools for data manipulation but no machine learning libraries. I've seen many people refer to hand-written digit recognition on the MNIST dataset as a great introduction to machine learning so I built and trained my Neural Network for that task, however this class can be used on any dataset (see modifications for other data). The purpose of this writeup is not to teach other people about neural networks or machine learning but instead for me to better understand what exactly I was doing and why. Also if I have to return to this later, this serves as great documentation. There are already far too many resources on machine learning out there and I'm sure nearly all of them are more accurate, thorough, and understandable than this.
 
@@ -29,7 +28,7 @@ I was similarly surprised by how well even the simplest model worked. Also even 
 
 There were also times when I was concerned that the model was not working but I just needed to let it train for more steps. I was running my model for iterations on the order of hundreds whereas I saw others used at least ten times that. I think I didn't quite appreciate how long training deep learning models takes before this project.
 
-I would also note that in classification problems like this the actual cost function you would like to minimize is the accuracy of your model but this is not differentiable so you instead use something differentiable function that approximates it like logloss, cross entropy or MSE. Some are better approximations than others but you still might have gradient descent steps that will decrease the cross entropy say but will increase the number of examples your model misses. 
+I would also note that in classification problems like this the actual cost function you would like to minimize is the accuracy of your model but this is not differentiable so you instead use some differentiable function that approximates it like logloss, cross entropy or MSE. Some are better approximations than others but you still might have gradient descent steps that will decrease the cross entropy say but will increase the number of examples your model misses. 
 
 Also it is super important that you have some way to save the configuration of your model after training. I accidentally lost hours worth of a trained model.
 
