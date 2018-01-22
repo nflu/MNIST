@@ -37,6 +37,6 @@ Also it is super important that you have some way to save the configuration of y
 Good luck future self (or whoever is reading this) with training your models :) 
 
 # How to View Results
-I saved the training data and best weights and biases I found so far in a dictionary called ```data``` and using pickle, saved it in the file ````data.pickle```. The current code on notebook demonstrates how to load the weights and biases and examine the training data.
+I saved the training data and best weights and biases I found so far in a dictionary called ```training_data``` and using pickle, saved it in the file ```training_data.pickle``` . The current code on notebook demonstrates how to load the weights and biases and examine the training data.
   
 
