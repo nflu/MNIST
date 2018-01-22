@@ -6,7 +6,7 @@ I wanted to better understand how neural networks work and I'm a strong believer
 
 I used a simple feedforward neural network because they are the most basic kind of neural network (NN) and also seem like the easiest to implement. Additionally, it seems like this model will give fairly good results on MNIST.
 
-I experimented with different activation functions, cost functions, and shapes. I ultimately found that pretty much any combination worked reasonably well (at least 80% accuracy) but more accuracy required fine-tuning.
+I experimented with different activation functions, cost functions, and shapes. I ultimately found that pretty much any combination worked reasonably well (at least 80% accuracy) but more accuracy required fine-tuning. I ended up using ReLU for my activation function and softmax -> cross entropy for my loss function.
 
 # Implementation
 The ```shape``` attribute is a list of integers which describes the number of neurons at the ```i```th layer. Thus ```len(self.shape)```, which you'll see come up often, is the number of layers in the neural network.
@@ -24,7 +24,9 @@ I noticed that replacing loops with NumPy vector operations really sped things u
 
 I was surprised by how much fine-tuning I needed to reach higher levels of accuracy but I think that the blogs post, articles, and forum questions that I read on the topic were very benificial. It seems like hyper-parameter tuning is what the majority of a developer's time goes to when working with these models.
 
-I was similarly surprised by how well even the simplest model worked. Also even using MSE as a cost function worked very well (by my standards) despite that this is a classification problem. Stochastic gradient descent also was a great tool. I pretty much started all of my training with a small number of stochastic gradient descent steps with a relatively high learning rate and they usually got the model to pretty good accuracy fast. I noticed that in as little as 5 steps I could go from ~10% accuracy to ~40% accuracy.
+I was similarly surprised by how well even the simplest model worked. Also even using MSE as a cost function worked very well (by my standards) despite that this is a classification problem. 
+
+Stochastic gradient descent also was a great tool. I was surprised how low I could set the batchsize and still see consistent improvement in the model over multiple iterations. Using SGD really speeds up training and I was impressed with its power. I should definitely read about the theoretical justifications for its effectiveness.
 
 There were also times when I was concerned that the model was not working but I just needed to let it train for more steps. I was running my model for iterations on the order of hundreds whereas I saw others used at least ten times that. I think I didn't quite appreciate how long training deep learning models takes before this project.
 
@@ -33,5 +35,8 @@ I would also note that in classification problems like this the actual cost func
 Also it is super important that you have some way to save the configuration of your model after training. I accidentally lost hours worth of a trained model.
 
 Good luck future self (or whoever is reading this) with training your models :) 
+
+# How to View Results
+I saved the training data and best weights and biases I found so far in a dictionary called ```data``` and using pickle, saved it in the file ````data.pickle```. The current code on notebook demonstrates how to load the weights and biases and examine the training data.
   
 
