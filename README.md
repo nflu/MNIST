@@ -1,6 +1,6 @@
 # MNIST
 
-I wanted to better understand how neural networks work and I'm a strong believer in learning by doing so I decided to build a neural network from scratch. I allowed myself to use NumPy and some varoius tools for data manipulation but no machine learning libraries. I've seen many people refer to hand-written digit recognition on the MNIST dataset as a great introduction to machine learning so I built and trained my Neural Network for that task, however this class can be used on any dataset (see modifications for other data). The purpose of this writeup is not to teach other people about neural networks or machine learning but instead for me to better understand what exactly I was doing and why. Also if I have to return to this later, this serves as great documentation. There are already far too many resources on machine learning out there and I'm sure nearly all of them are more accurate, thorough, and understandable than this.
+I wanted to better understand how neural networks work and I'm a strong believer in learning by doing so I decided to build a neural network from scratch. I allowed myself to use NumPy and some tools for data manipulation but no machine learning libraries. I've seen many people refer to hand-written digit recognition on the MNIST dataset as a great introduction to machine learning, so I built and trained my Neural Network for that task. The network can be used on any dataset (see modifications for other data). The purpose of this writeup is not to teach other people about neural networks or machine learning, but instead for me to better understand what exactly I was doing and why. I find that writing about what I did and why can reinforce my understnading. There are already far too many resources on machine learning out there and I'm sure nearly all of them are more accurate, thorough, and understandable than this.
 
 # Approach
 
@@ -20,17 +20,15 @@ Backprop is done using mostly NumPy vector operations to speed things up and mak
 The class attribute ```inputChecks``` will check that various inputs to functions are the right size for using this neural network for MNIST. The purpose of having these checks is to help with debugging since Python's dynamic-typing can be a little confusing when trying to diagnosis problems regarding incorrectly formatted data. However they can be turned off by setting this to false. This allows for using the neural network with other data or just debugging on smaller examples since 28^2 is a large dimension to deal with when debugging. 
 
 # Results
-I noticed that replacing loops with NumPy vector operations really sped things up. On any future projects I will definitely use that. There are a few places in my code currently where I can replace some loops with vector operations but those functions are not used enough to warrant the changes I think.
+I noticed that replacing loops with NumPy vector operations really sped things up. On any future projects I will definitely use that. There are a few places in my code currently where I can replace some loops with vector operations but those functions are not used enough to warrant the changes.
 
-I was surprised by how much fine-tuning I needed to reach higher levels of accuracy but I think that the blogs post, articles, and forum questions that I read on the topic were very benificial. It seems like hyper-parameter tuning is what the majority of a developer's time goes to when working with these models.
+I was surprised by how much fine-tuning I needed to reach higher levels of accuracy but I think that the blogs post, articles, and forum questions that I read on the topic were very benificial. It seems like hyper-parameter tuning is what the majority of a developer's time goes to when working with these types of models.
 
 I was similarly surprised by how well even the simplest model worked. Also even using MSE as a cost function worked very well (by my standards) despite that this is a classification problem. 
 
 Stochastic gradient descent also was a great tool. I was surprised how low I could set the batchsize and still see consistent improvement in the model over multiple iterations. Using SGD really speeds up training and I was impressed with its power. I should definitely read about the theoretical justifications for its effectiveness.
 
 There were also times when I was concerned that the model was not working but I just needed to let it train for more steps. I was running my model for iterations on the order of hundreds whereas I saw others used at least ten times that. I think I didn't quite appreciate how long training deep learning models takes before this project.
-
-I would also note that in classification problems like this the actual cost function you would like to minimize is the accuracy of your model but this is not differentiable so you instead use some differentiable function that approximates it like logloss, cross entropy or MSE. Some are better approximations than others but you still might have gradient descent steps that will decrease the cross entropy say but will increase the number of examples your model misses. 
 
 Also it is super important that you have some way to save the configuration of your model after training. I accidentally lost hours worth of a trained model.
 
@@ -39,4 +37,13 @@ Good luck future self (or whoever is reading this) with training your models :)
 # How to View Results
 I saved the training data and best weights and biases I found so far in a dictionary called ```training_data``` and using pickle, saved it in the file ```training_data.pickle``` . The current code on notebook demonstrates how to load the weights and biases and examine the training data.
   
+# Thinking in Terms of Optimization
+In all the things I read about machine learning I never once saw this approach and since I had taken convex optimization just before doing this, I found this view very elucidating.
+
+We would like to minimize the number of data points our model incorrectly classifies on all the data it will see when in production. We don't have access to all the data our model will ever see in production, so instead we use a training data set that we hope is representative of what our model will be used on.
+
+The problem now is that our objective function is non-differentiable since it is the number of data points the model misclassifies. So we use a differentiable cost function that approximates the number of missclassified points. That's why people try different cost functions because the cost function is itself a hyper-parameter that must be tuned to get the best accuracy on the dataset.
+
+Then we just use gradient-based optimization techniques to minimize that objective and our decision variables are the weights and biases of the model which determine its shape. Backprop is simply a way to calculate the gradient of the cost function with respect to the weights and biases.
+
 
